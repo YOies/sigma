@@ -1,3 +1,4 @@
+-- test
 local Player = game.Players.LocalPlayer
 local vim = game:GetService("VirtualInputManager")
 
@@ -15,6 +16,8 @@ game:GetService("ReplicatedStorage"):WaitForChild("endpoints"):WaitForChild("cli
 
 
 --auto notify 
+
+    -- shiny secret check
 if game:GetService("Players").LocalPlayer.PlayerGui.UnitInfo.holder.info1.Rarity.Text == "Secret"  and game:GetService("Players").LocalPlayer.PlayerGui.UnitInfo.Shiny.Visible == true then 
     function SendMessageEMBED(url, embed)
         local http = game:GetService("HttpService")
@@ -63,6 +66,58 @@ if game:GetService("Players").LocalPlayer.PlayerGui.UnitInfo.holder.info1.Rarity
     getgenv().Open = false 
     task.wait(getgenv().TimeToContinue)
     getgenv().Open = true 
+
+    -- normal secret check
+elseif game:GetService("Players").LocalPlayer.PlayerGui.UnitInfo.holder.info1.Rarity.Text == "Secret"  and game:GetService("Players").LocalPlayer.PlayerGui.UnitInfo.Shiny.Visible == false then 
+        function SendMessageEMBED(url, embed)
+            local http = game:GetService("HttpService")
+            local headers = {
+                ["Content-Type"] = "application/json"
+            }
+            local data = {
+                ["embeds"] = {
+                    {
+                        ["title"] = embed.title,
+                        ["description"] = embed.description,
+                        ["color"] = embed.color,
+                        ["fields"] = embed.fields,
+                    }
+                }
+            }
+            local body = http:JSONEncode(data)
+            request({
+                Url = url,
+                Method = "POST",
+                Headers = headers,
+                Body = body
+            })
+        end
+        
+        local webhookUrl = "https://discord.com/api/webhooks/1321564381263433788/6GE3lwYzy9xJGUZgplXF3xX8RlIlHwlXkJdWE75njAUjqjXMq_W0khKg3dYIp-xzystT"
+        local thumbsDownEmoji = utf8.char(0x1F44E)
+        
+        
+        
+        local embed = {
+            ["title"] = "Normal Secret Nigga Notify.",
+            ["description"] = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,
+            ["color"] = 65280,
+            ["fields"] = {
+                {
+                    ["name"] = "NORMAL NIGGA NAME:",
+                    ["value"] =  game:GetService("Players").LocalPlayer.PlayerGui.UnitInfo.holder.info1.UnitName.UnitNameText.Text,
+                },
+            }
+        }
+        
+        
+        
+        SendMessageEMBED(webhookUrl, embed)
+        getgenv().Open = false 
+        task.wait(getgenv().TimeToContinue)
+        getgenv().Open = true 
+
+        -- shiny mythic check
 elseif game:GetService("Players").LocalPlayer.PlayerGui.UnitInfo.holder.info1.Rarity.Text == "Mythic"  and game:GetService("Players").LocalPlayer.PlayerGui.UnitInfo.Shiny.Visible == true then 
         function SendMessageEMBED(url, embed)
             local http = game:GetService("HttpService")
