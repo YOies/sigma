@@ -1,0 +1,131 @@
+local Player = game.Players.LocalPlayer
+local vim = game:GetService("VirtualInputManager")
+
+while task.wait(.1) do 
+ if Open == true then 
+
+    --auto roll 
+local args = {
+    [1] = "EventClover",
+    [2] = "gems10"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("endpoints"):WaitForChild("client_to_server"):WaitForChild("buy_from_banner"):InvokeServer(unpack(args))
+
+
+
+--auto notify 
+if game:GetService("Players").LocalPlayer.PlayerGui.UnitInfo.holder.info1.Rarity.Text == "Secret"  and game:GetService("Players").LocalPlayer.PlayerGui.UnitInfo.Shiny.Visible == true then 
+    function SendMessageEMBED(url, embed)
+        local http = game:GetService("HttpService")
+        local headers = {
+            ["Content-Type"] = "application/json"
+        }
+        local data = {
+            ["embeds"] = {
+                {
+                    ["title"] = embed.title,
+                    ["description"] = embed.description,
+                    ["color"] = embed.color,
+                    ["fields"] = embed.fields,
+                }
+            }
+        }
+        local body = http:JSONEncode(data)
+        request({
+            Url = url,
+            Method = "POST",
+            Headers = headers,
+            Body = body
+        })
+    end
+    
+    local webhookUrl = "https://discord.com/api/webhooks/1321558296574033960/fQNYNSNquPZNA2P8UeyBC6OdwyBRdUlY7LQvFoTCmvpOFjo6zJklZSMmnubYQob-aymX"
+    local thumbsDownEmoji = utf8.char(0x1F44E)
+    
+    
+    
+    local embed = {
+        ["title"] = "Shiny Secret Nigga Notify.",
+        ["description"] = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,
+        ["color"] = 65280,
+        ["fields"] = {
+            {
+                ["name"] = "SHINY NIGGA NAME:",
+                ["value"] =  game:GetService("Players").LocalPlayer.PlayerGui.UnitInfo.holder.info1.UnitName.UnitNameText.Text,
+            },
+        }
+    }
+    
+    
+    
+    SendMessageEMBED(webhookUrl, embed)
+    getgenv().Open = false 
+    task.wait(getgenv().TimeToContinue)
+    getgenv().Open = true 
+elseif game:GetService("Players").LocalPlayer.PlayerGui.UnitInfo.holder.info1.Rarity.Text == "Mythic"  and game:GetService("Players").LocalPlayer.PlayerGui.UnitInfo.Shiny.Visible == true then 
+        function SendMessageEMBED(url, embed)
+            local http = game:GetService("HttpService")
+            local headers = {
+                ["Content-Type"] = "application/json"
+            }
+            local data = {
+                ["embeds"] = {
+                    {
+                        ["title"] = embed.title,
+                        ["description"] = embed.description,
+                        ["color"] = embed.color,
+                        ["fields"] = embed.fields,
+                    }
+                }
+            }
+            local body = http:JSONEncode(data)
+            request({
+                Url = url,
+                Method = "POST",
+                Headers = headers,
+                Body = body
+            })
+        end
+        
+        local webhookUrl = "https://discord.com/api/webhooks/1321560111671545947/dvfb4wabvSfrqk_lOzz3Hhcgampwmhbn_Yftd_wwbrNsyRaKcyrE2iI-erLiHbNgyAo4"
+        local thumbsDownEmoji = utf8.char(0x1F44E)
+        
+        
+        
+        local embed = {
+            ["title"] = "Shiny Mythic Nigga Notify.",
+            ["description"] = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,
+            ["color"] = 65280,
+            ["fields"] = {
+                {
+                    ["name"] = "SHINY NIGGA NAME:",
+                    ["value"] =  game:GetService("Players").LocalPlayer.PlayerGui.UnitInfo.holder.info1.UnitName.UnitNameText.Text,
+                },
+            }
+        }
+        
+        
+        
+        SendMessageEMBED(webhookUrl, embed)
+    getgenv().Open = false 
+ task.wait(getgenv().TimeToContinue)
+ getgenv().Open = true 
+end 
+
+
+
+-- # auto click func-
+    if game:GetService("Players").LocalPlayer.PlayerGui.UnitInfo.Enabled == true then 
+        vim:SendMouseButtonEvent(0, 0, 0, true, game, 0)
+           task.wait()
+           vim:SendMouseButtonEvent(0, 0, 0, false, game, 0)
+            end
+
+
+
+        else
+            wait()
+            break
+        end 
+    end 
